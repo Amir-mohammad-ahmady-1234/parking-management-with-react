@@ -2,3 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+button {
+    background-color: rgb(13, 110, 253);
+}
+
+
+/* medias */
+
+@media screen and (max-width: 700px) {
+    .parking-container {
+        background-size: 500%;
+    }
+}
+
+
+@media screen and (max-width: 610px) {
+    .slot-selected {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
+
+
+@media screen and (max-width: 400px) {
+    .parking-container {
+        background-size: 800%;
+        height: 140vh;
+    }
+
+    .header-compo {
+        height: 8rem;
+    }
+}
+
