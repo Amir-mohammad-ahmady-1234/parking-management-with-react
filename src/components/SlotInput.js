@@ -1,7 +1,7 @@
-export default function SlotInput({slot, setSlot, setIsErrorOpen}) {
-  function handleChangeSlotInput (e) {
-    setSlot(e.target.value)
-    slot >= 0 && setIsErrorOpen(false)
+export default function SlotInput({ slot, setSlot, setIsErrorOpen1 }) {
+  function handleChangeSlotInput(e) {
+    setSlot(e.target.value);
+    slot >= 0 && setIsErrorOpen1("");
   }
   return (
     <div className="space-x-2">
@@ -10,7 +10,7 @@ export default function SlotInput({slot, setSlot, setIsErrorOpen}) {
         type={"number"}
         className="border-[1px] border-black pl-1 font-[500]"
         value={slot}
-        onChange={e => handleChangeSlotInput(e)}
+        onChange={(e) => handleChangeSlotInput(e)}
       />
     </div>
   );

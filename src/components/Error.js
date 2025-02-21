@@ -1,3 +1,3 @@
-export default function Error() {
-  return <p className="text-[red] text-[0.9em] font-[500]">Enter total number of parking slots</p>;
+export default function Error({message}) {
+  return <p>{message}</p>;
 }
