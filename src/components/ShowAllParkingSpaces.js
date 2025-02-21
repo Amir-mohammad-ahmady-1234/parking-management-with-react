@@ -1,6 +1,6 @@
 export default function ShowAllParkingSpaces({ slot }) {
   return (
-    <div className="w-3/4 h-fit bg-white p-[20px] rounded-xl">
+    <div className="w-4/5 h-fit bg-white p-[20px] rounded-xl">
       <div className="size-full border p-2 border-black flex flex-wrap gap-[2em]">
         {+slot > 0 &&
           Array.from({ length: +slot }, (_, i) => {

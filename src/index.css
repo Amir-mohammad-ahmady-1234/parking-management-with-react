@@ -6,13 +6,25 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-button {
+.generate-btn {
     background-color: rgb(13, 110, 253);
 }
 
+.addBtn {
+    background-color: rgb(40, 167, 69);
+}
 
 /* medias */
 
+
+@media screen and (max-width: 900px) {
+        .vehicle-details {
+            flex-direction: column;
+        }
+        .vehicle-details-container {
+            height: fit-content;
+        }
+}
 
 @media screen and (max-width: 610px) {
     .slot-selected {
