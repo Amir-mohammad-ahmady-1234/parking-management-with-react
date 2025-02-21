@@ -1,3 +1,3 @@
-export default function Error({message}) {
-  return <p>{message}</p>;
+export default function Error({ message }) {
+  return <>{message}</>;
 }

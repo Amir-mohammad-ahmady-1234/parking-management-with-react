@@ -12,23 +12,23 @@ import Error from "./Error";
 
 const pattern = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/i;
 
-
 function App() {
   const [slot, setSlot] = useState("");
   const [isAddAutomobileOpen, setIsAddAutomobileOpen] = useState(false);
   const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(0);
+  const [filledSlot, setFilledSlot] = useState([]);
+
+  // Errors state
   const [isErrorOpen1, setIsErrorOpen1] = useState("");
   const [isErrorOpen2, setIsErrorOpen2] = useState("");
   const [isRegistrationError, setIsRegistrationError] = useState("");
   const [isColorError, setIsColorError] = useState("");
   const [isVehicleSelectedError, setIsVehicleSelectedError] = useState("");
-  const [filledSlot, setFilledSlot] = useState([]);
 
   // add new Vehicle states
   const [licensePlate, setLicensePlate] = useState("");
   const [vehicleColor, setVehicleColor] = useState("");
   const [vehicleSelected, setVehicleSelected] = useState("");
-  ////////////////////////////////////////////////////////////
 
   // drived state
   const AvailableSpace = slot - numParkedAutomobiles;
@@ -47,18 +47,21 @@ function App() {
       setIsRegistrationError(
         "Enter registration number in correct format - AB-12-XY-1234"
       );
+      return;
     } else {
       setIsRegistrationError("");
     }
 
     if (!vehicleColor) {
       setIsColorError("Enter correct colour value");
+      return;
     } else {
       setIsColorError("");
     }
 
     if (!vehicleSelected) {
       setIsVehicleSelectedError("Please select vehicle type");
+      return;
     } else {
       setIsVehicleSelectedError("");
     }
@@ -85,6 +88,10 @@ function App() {
       setIsAddAutomobileOpen(false);
       setIsErrorOpen2(false);
     }
+
+    setLicensePlate("");
+    setVehicleColor("");
+    setVehicleSelected("");
   }
 
   return (

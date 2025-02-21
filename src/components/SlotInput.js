@@ -9,7 +9,7 @@ export default function SlotInput({ slot, setSlot, setIsErrorOpen1 }) {
       <input
         type={"number"}
         className="border-[1px] border-black pl-1 font-[500]"
-        value={slot}
+        value={slot < 0 ? 0 : slot}
         onChange={(e) => handleChangeSlotInput(e)}
       />
     </div>
