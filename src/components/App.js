@@ -79,6 +79,8 @@ function App() {
     if (vehicleSelected === "car" && AvailableSpace === 0.5) {
       setIsErrorOpen2("space not enough to accomodate new vehicle");
       return;
+    } else {
+      setIsErrorOpen2("");
     }
 
     if (
@@ -91,7 +93,26 @@ function App() {
 
     setLicensePlate("");
     setVehicleColor("");
-    setVehicleSelected("");
+    // setVehicleSelected("");
+
+    const isSlotNumRound = isRound(slot - AvailableSpace);
+
+    let newVehicle = {
+      id: crypto.randomUUID(),
+      slot:
+        isSlotNumRound || vehicleSelected === "car"
+          ? Math.ceil(slot - AvailableSpace + 1)
+          : Math.ceil(slot - AvailableSpace),
+      registration: licensePlate,
+      color: vehicleColor,
+      vehicleType: vehicleSelected,
+    };
+
+    setFilledSlot((items) => [...items, newVehicle]);
+  }
+
+  function isRound(num) {
+    return num === Math.round(num);
   }
 
   return (
@@ -119,6 +140,7 @@ function App() {
             setLicensePlate={setLicensePlate}
             vehicleColor={vehicleColor}
             setVehicleColor={setVehicleColor}
+            vehicleSelected={vehicleSelected}
             setVehicleSelected={setVehicleSelected}
             onSelectedAvailableSpace={handleSelectedAvailableSpace}
             Error={
@@ -138,7 +160,7 @@ function App() {
         )}
 
         <ParkedCars />
-        <ShowAllParkingSpaces slot={slot} />
+        <ShowAllParkingSpaces slot={slot} filledSlot={filledSlot} />
       </Main>
     </div>
   );

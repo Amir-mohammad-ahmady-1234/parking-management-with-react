@@ -4,6 +4,7 @@ export default function AddAutomobile({
   setLicensePlate,
   vehicleColor,
   setVehicleColor,
+  vehicleSelected,
   setVehicleSelected,
   onSelectedAvailableSpace,
   Error,
@@ -40,15 +41,15 @@ export default function AddAutomobile({
             <input
               type={"radio"}
               name="vehicle"
-              value="car"
-              onChange={(e) => setVehicleSelected(e.target.value)}
+              value={vehicleSelected}
+              onChange={(e) => setVehicleSelected('car')}
             />
             car
             <input
               type={"radio"}
               name="vehicle"
-              value="bike"
-              onChange={(e) => setVehicleSelected(e.target.value)}
+              value={vehicleSelected}
+              onChange={(e) => setVehicleSelected('bike')}
             />
             bike
           </div>
