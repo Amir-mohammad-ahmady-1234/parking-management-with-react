@@ -13,27 +13,28 @@ export default function ShowAllParkingSpaces({ slot, filledSlot }) {
                 key={i}
               >
                 <h4 className="font-bold">{i + 1}</h4>
-                {filledSlot.length > 0 && filledSlot.map((vehicle) => {
-                  return (
-                  vehicle.slot === i + 1 && vehicle.vehicleType === "car" ? (
-                    <img
-                      src={carImg}
-                      alt="vehicle img"
-                      className="w-[90px] h-[168px]"
-                      key={vehicle.id}
-                    />
-                  ) : vehicle.slot === i + 1 &&
-                    vehicle.vehicleType === "bike" ? (
-                    <img
-                      src={bikeImg}
-                      alt="vehicle img"
-                      className="w-[36px] h-[80px]"
-                      key={vehicle.id}
-                    />
-                  ) : (
-                    ""
-                  ));
-                })}
+                {filledSlot.length > 0 &&
+                  filledSlot.map((vehicle) => {
+                    return vehicle.slot === i + 1 &&
+                      vehicle.vehicleType === "car" ? (
+                      <img
+                        src={carImg}
+                        alt="vehicle img"
+                        className='w-[90px] h-[168px]'
+                        key={vehicle.id}
+                      />
+                    ) : vehicle.slot === i + 1 &&
+                      vehicle.vehicleType === "bike" ? (
+                      <img
+                        src={bikeImg}
+                        alt="vehicle img"
+                        className='w-[36px] h-[80px]'
+                        key={vehicle.id}
+                      />
+                    ) : (
+                      ""
+                    );
+                  })}
                 {/* <img src={carImg} alt="vehicle img" className='w-[90px] h-[168px]' /> */}
                 {/* <img src={bikeImg} alt="vehicle img" className='w-[36px] h-[80px]' /> */}
                 {/* <img src={bikeImg} alt="vehicle img" className='w-[36px] h-[80px] justify-self-center' /> */}
