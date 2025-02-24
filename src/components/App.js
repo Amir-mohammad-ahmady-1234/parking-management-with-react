@@ -17,6 +17,7 @@ function App() {
   const [isAddAutomobileOpen, setIsAddAutomobileOpen] = useState(false);
   const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(0);
   const [filledSlot, setFilledSlot] = useState([]);
+  const [isParkedTableOpen, setIsParkedTableOpen] = useState(false);
 
   // Errors state
   const [isErrorOpen1, setIsErrorOpen1] = useState("");
@@ -33,17 +34,22 @@ function App() {
   // derived state
   const AvailableSpace = slot - numParkedAutomobiles;
 
-  const prevVehicle =
-    filledSlot.length > 0 && filledSlot[filledSlot.length - 1];
-
-  const isSlotNumRound = isRound(slot - AvailableSpace);
-
-  // useEffect برای بررسی AvailableSpace و بستن باکس
+  // // useEffect to check Available Space and close the box
   useEffect(() => {
     if (AvailableSpace <= 0) {
       setIsAddAutomobileOpen(false);
     }
   }, [AvailableSpace]);
+
+  // useEffect to first cliked on add new vehicle
+  useEffect(
+    function () {
+      if (filledSlot.length > 0) {
+        setIsParkedTableOpen(true);
+      }
+    },
+    [filledSlot]
+  );
 
   function handleIsAddCarOpen() {
     if (AvailableSpace > 0) {
@@ -125,6 +131,8 @@ function App() {
     if (!isSlotFound) {
       setIsErrorOpen2("No available slot for the selected vehicle type");
       return;
+    } else {
+      setIsErrorOpen2("")
     }
 
     // Update the number of parked vehicles
@@ -141,6 +149,7 @@ function App() {
       registration: licensePlate,
       color: vehicleColor,
       vehicleType: vehicleSelected,
+      EnterTime: Math.round(Date.now() / 1000),
     };
 
     // Add the new vehicle to the filledSlot array
@@ -150,10 +159,7 @@ function App() {
     setLicensePlate("");
     setVehicleColor("");
     // setVehicleSelected("");
-  }
 
-  function isRound(num) {
-    return num === Math.round(num);
   }
 
   return (
@@ -200,7 +206,14 @@ function App() {
           />
         )}
 
-        <ParkedCars />
+        <ParkedCars
+          isParkedTableOpen={isParkedTableOpen}
+          filledSlot={filledSlot}
+          setFilledSlot={setFilledSlot}
+          setNumParkedAutomobiles={setNumParkedAutomobiles}
+          setIsAddAutomobileOpen={setIsAddAutomobileOpen}
+          setIsErrorOpen1={setIsErrorOpen1}
+        />
         <ShowAllParkingSpaces slot={slot} filledSlot={filledSlot} />
       </Main>
     </div>
