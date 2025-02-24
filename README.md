@@ -25,10 +25,8 @@ Welcome to the **Parking Management System**! This project is a modern, responsi
 ## Technologies Used 🛠️
 
 - **React**: A powerful JavaScript library for building user interfaces.
-  ![React](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png)
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-  ![Tailwind CSS](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/1024px-Tailwind_CSS_Logo.svg.png)
-
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development. <br><br>
+ ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) 
 ---
 
 ## Live Demo 🌐
@@ -39,6 +37,7 @@ Check out the live demo of the project here:
 ---
 
 ## Screenshots 
+<img src="Screenshot (71).png" alt="screenshot" />
 
 
 ---
@@ -47,4 +46,4 @@ Check out the live demo of the project here:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/parking-management.git
+   git clone https://github.com/Amir-mohammad-ahmady-1234/parking-management-with-react.git
