@@ -45,5 +45,18 @@ Check out the live demo of the project here:
 ## How to Run Locally 🚀
 
 1. Clone the repository:
-   ```bash
+   ```bash 
    git clone https://github.com/Amir-mohammad-ahmady-1234/parking-management-with-react.git
+    
+2. Navigate to the project directory:
+   ```bash
+   cd parking-management
+3. Install dependencies:
+   ```bash
+   npm install
+4. Start the development server:
+   ```bash
+   npm start\
+5. Open your browser and visit:
+   ```bash
+   http://localhost:3000
