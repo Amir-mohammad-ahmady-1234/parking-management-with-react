@@ -1,11 +1,14 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* پایه استایل‌ها */
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* استایل دکمه‌ها */
 .generate-btn {
     background-color: rgb(13, 110, 253);
 }
@@ -14,22 +17,28 @@ body {
     background-color: rgb(40, 167, 69);
 }
 
-input  {
-border: 1px solid black;
+/* ورودی‌ها */
+input {
+    border: 1px solid black;
 }
 
-/* medias */
+/* استایل‌های ریسپانسیو */
 
-
+/* برای صفحه‌های بزرگتر از 900px */
 @media screen and (max-width: 900px) {
-        .vehicle-details {
-            flex-direction: column;
-        }
-        .vehicle-details-container {
-            height: fit-content;
-        }
+    .vehicle-details {
+        flex-direction: column; /* چینش عمودی */
+    }
+    .vehicle-details-container {
+        height: fit-content;
+    }
+
+    .header-compo {
+        height: auto;
+    }
 }
 
+/* برای صفحه‌های کوچکتر از 610px */
 @media screen and (max-width: 610px) {
     .slot-selected {
         flex-direction: column;
@@ -39,11 +48,58 @@ border: 1px solid black;
     }
 }
 
-
-
+/* برای صفحه‌های کوچکتر از 400px */
 @media screen and (max-width: 400px) {
     .header-compo {
-        height: 8rem;
+        height: 8rem; /* کاهش ارتفاع هدر */
+    }
+
+    .vehicle-details-container {
+        padding: 10px;
+    }
+
+    .generate-btn {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .addBtn {
+        width: 100%;
+        padding: 1rem;
     }
 }
 
+/* برای تمامی دستگاه‌ها و رزولوشن‌ها */
+@media (max-width: 640px) {
+    .vehicle-details-container {
+        padding: 15px;
+    }
+    .vehicle-details {
+        gap: 1.5rem; /* فاصله بیشتر */
+    }
+    .addBtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .slot-selected {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .vehicle-details-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-container {
+        padding: 10px;
+    }
+
+    .header-compo {
+        height: 5rem;
+    }
+}
+    
