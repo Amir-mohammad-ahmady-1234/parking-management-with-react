@@ -15,14 +15,22 @@ const pattern = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/i;
 function App() {
   const [slot, setSlot] = useState(function () {
     const storedStorage = localStorage.getItem("slot");
-    return JSON.parse(storedStorage);
+    if (storedStorage) {
+      return JSON.parse(storedStorage);
+    } else {
+      return 0;
+    }
   });
 
   const [isAddAutomobileOpen, setIsAddAutomobileOpen] = useState(false);
   const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(0);
   const [filledSlot, setFilledSlot] = useState(function () {
     const storedStorage = localStorage.getItem("filledSlot");
-    return JSON.parse(storedStorage);
+    if (storedStorage) {
+      return JSON.parse(storedStorage);
+    } else {
+      return [];
+    }
   });
 
   const [isParkedTableOpen, setIsParkedTableOpen] = useState(false);
