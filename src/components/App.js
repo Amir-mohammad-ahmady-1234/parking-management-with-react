@@ -23,7 +23,6 @@ function App() {
   });
 
   const [isAddAutomobileOpen, setIsAddAutomobileOpen] = useState(false);
-  const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(0);
   const [filledSlot, setFilledSlot] = useState(function () {
     const storedStorage = localStorage.getItem("filledSlot");
     if (storedStorage) {
@@ -31,6 +30,19 @@ function App() {
     } else {
       return [];
     }
+  });
+  
+  const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(function () {
+    let parkedCount = 0
+      filledSlot.filter(vehicle => {
+        if (vehicle.vehicleType === 'car') {
+          parkedCount++
+        } else if (vehicle.vehicleType === 'bike') {
+          parkedCount += 0.5
+        }
+      })    
+
+      return parkedCount
   });
 
   const [isParkedTableOpen, setIsParkedTableOpen] = useState(false);
