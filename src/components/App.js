@@ -13,10 +13,18 @@ import Error from "./Error";
 const pattern = /^[A-Z]{2}-\d{2}-[A-Z]{2}-\d{4}$/i;
 
 function App() {
-  const [slot, setSlot] = useState("");
+  const [slot, setSlot] = useState(function () {
+    const storedStorage = localStorage.getItem("slot");
+    return JSON.parse(storedStorage);
+  });
+
   const [isAddAutomobileOpen, setIsAddAutomobileOpen] = useState(false);
   const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(0);
-  const [filledSlot, setFilledSlot] = useState([]);
+  const [filledSlot, setFilledSlot] = useState(function () {
+    const storedStorage = localStorage.getItem("filledSlot");
+    return JSON.parse(storedStorage);
+  });
+
   const [isParkedTableOpen, setIsParkedTableOpen] = useState(false);
 
   // Errors state
@@ -49,6 +57,21 @@ function App() {
       }
     },
     [filledSlot]
+  );
+
+  // local storage added
+  useEffect(
+    function () {
+      localStorage.setItem("filledSlot", JSON.stringify(filledSlot));
+    },
+    [filledSlot]
+  );
+
+  useEffect(
+    function () {
+      localStorage.setItem("slot", JSON.stringify(slot));
+    },
+    [slot]
   );
 
   function handleIsAddCarOpen() {
@@ -132,7 +155,7 @@ function App() {
       setIsErrorOpen2("No available slot for the selected vehicle type");
       return;
     } else {
-      setIsErrorOpen2("")
+      setIsErrorOpen2("");
     }
 
     // Update the number of parked vehicles
@@ -159,7 +182,6 @@ function App() {
     setLicensePlate("");
     setVehicleColor("");
     // setVehicleSelected("");
-
   }
 
   return (

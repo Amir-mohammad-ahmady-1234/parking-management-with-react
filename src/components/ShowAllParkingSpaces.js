@@ -40,7 +40,8 @@ export default function ShowAllParkingSpaces({ slot, filledSlot }) {
                 {/* <img src={bikeImg} alt="vehicle img" className='w-[36px] h-[80px] justify-self-center' /> */}
               </div>
             );
-          })}
+          })
+          }
       </div>
     </div>
   );
