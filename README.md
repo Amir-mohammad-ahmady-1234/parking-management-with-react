@@ -19,6 +19,7 @@ Welcome to the **Parking Management System**! This project is a modern, responsi
 - **Responsive Design**: A clean and modern UI built with **Tailwind CSS**.
 - **Slot Management**:
   - Each slot can hold **1 car** or **2 bikes**.
+- save data in localStorage.
 
 ---
 
