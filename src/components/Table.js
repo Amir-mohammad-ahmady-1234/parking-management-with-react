@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -72,96 +73,91 @@ export default function Table({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg overflow-hidden">
-        <thead className="bg-gray-100">
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
           <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Registration Number
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              شماره جای پارک
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Vehicle Type
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              شماره پلاک
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Color
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              رنگ
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Slot
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              نوع وسیله نقلیه
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">
-              Actions
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              زمان ورود
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              عملیات
             </th>
           </tr>
         </thead>
-
-        <tbody className="divide-y divide-gray-200">
-          <tr className="hover:bg-gray-50 transition-colors">
-            <td className="px-6 py-4">
-              <input
-                type="text"
-                name="registration"
-                value={filters.registration}
-                onChange={handleFilterChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Reg. Number"
-              />
-            </td>
-            <td className="px-6 py-4">
-              <input
-                type="text"
-                name="vehicleType"
-                value={filters.vehicleType}
-                onChange={handleFilterChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Vehicle Type"
-              />
-            </td>
-            <td className="px-6 py-4">
-              <input
-                type="text"
-                name="color"
-                value={filters.color}
-                onChange={handleFilterChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Color"
-              />
-            </td>
-            <td className="px-6 py-4">
-              <input
-                type="text"
-                name="slot"
-                value={filters.slot}
-                onChange={handleFilterChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter Slot"
-              />
-            </td>
-            <td className="px-6 py-4">
-              <div className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors">
-                Filter
-              </div>
-            </td>
-          </tr>
-
-          {filteredVehicles.map((vehicle) => (
-            <tr className="hover:bg-gray-50 transition-colors" key={vehicle.id}>
-              <td className="px-6 py-4 text-sm text-gray-800">
-                {vehicle.registration}
-              </td>
-              <td className="px-6 py-4 text-sm text-gray-800">
-                {vehicle.vehicleType}
-              </td>
-              <td className="px-6 py-4 text-sm text-gray-800">
-                {vehicle.color}
-              </td>
-              <td className="px-6 py-4 text-sm text-gray-800">
+        <tbody className="bg-white divide-y divide-gray-200">
+          {filledSlot.map((vehicle) => (
+            <tr key={vehicle.id} className="hover:bg-gray-50">
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                 {vehicle.slot}
               </td>
-              <td className="px-6 py-4">
-                <button
-                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-                  onClick={() => handleExitClicked(vehicle)}
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                {vehicle.registration}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                {vehicle.color}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <span
+                  className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                    vehicle.vehicleType === "car"
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-green-100 text-green-800"
+                  }`}
                 >
-                  Exit
+                  {vehicle.vehicleType === "car" ? "خودرو" : "موتورسیکلت"}
+                </span>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                {new Date(vehicle.EnterTime * 1000).toLocaleTimeString("fa-IR")}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                <button
+                  onClick={() => handleExitClicked(vehicle)}
+                  className="text-red-600 hover:text-red-900 transition-colors duration-200"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
                 </button>
               </td>
             </tr>

@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"; // useEffect اضافه شد
-
+import { useState, useEffect } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import SlotSelection from "./SlotSelection";
@@ -31,18 +30,17 @@ function App() {
       return [];
     }
   });
-  
-  const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(function () {
-    let parkedCount = 0
-      filledSlot.filter(vehicle => {
-        if (vehicle.vehicleType === 'car') {
-          parkedCount++
-        } else if (vehicle.vehicleType === 'bike') {
-          parkedCount += 0.5
-        }
-      })    
 
-      return parkedCount
+  const [numParkedAutomobiles, setNumParkedAutomobiles] = useState(function () {
+    let parkedCount = 0;
+    filledSlot.forEach((vehicle) => {
+      if (vehicle.vehicleType === "car") {
+        parkedCount++;
+      } else if (vehicle.vehicleType === "bike") {
+        parkedCount += 0.5;
+      }
+    });
+    return parkedCount;
   });
 
   const [isParkedTableOpen, setIsParkedTableOpen] = useState(false);
@@ -62,89 +60,64 @@ function App() {
   // derived state
   const AvailableSpace = slot - numParkedAutomobiles;
 
-  // // useEffect to check Available Space and close the box
   useEffect(() => {
     if (AvailableSpace <= 0) {
       setIsAddAutomobileOpen(false);
     }
   }, [AvailableSpace]);
 
-  // useEffect to first cliked on add new vehicle
-  useEffect(
-    function () {
-      if (filledSlot.length > 0) {
-        setIsParkedTableOpen(true);
-      }
-    },
-    [filledSlot]
-  );
+  useEffect(() => {
+    if (filledSlot.length > 0) {
+      setIsParkedTableOpen(true);
+    }
+  }, [filledSlot]);
 
-  // local storage added
-  useEffect(
-    function () {
-      localStorage.setItem("filledSlot", JSON.stringify(filledSlot));
-    },
-    [filledSlot]
-  );
+  useEffect(() => {
+    localStorage.setItem("filledSlot", JSON.stringify(filledSlot));
+  }, [filledSlot]);
 
-  useEffect(
-    function () {
-      localStorage.setItem("slot", JSON.stringify(slot));
-    },
-    [slot]
-  );
+  useEffect(() => {
+    localStorage.setItem("slot", JSON.stringify(slot));
+  }, [slot]);
 
   function handleIsAddCarOpen() {
     if (AvailableSpace > 0) {
       setIsAddAutomobileOpen((is) => !is);
       setIsErrorOpen1("");
-      // Clear all errors when the box is opened
       setIsRegistrationError("");
       setIsColorError("");
       setIsVehicleSelectedError("");
       setIsErrorOpen2("");
     } else {
-      setIsErrorOpen1("Enter or add the total number of parking spaces");
+      setIsErrorOpen1("لطفاً تعداد جای پارک را وارد کنید");
     }
   }
 
   function handleSelectedAvailableSpace() {
-    // Check for duplicate license plate
     const isDuplicate = filledSlot.some(
       (vehicle) => vehicle.registration === licensePlate
     );
 
     if (isDuplicate) {
-      setIsRegistrationError("License plate is duplicate");
+      setIsRegistrationError("این شماره پلاک قبلاً ثبت شده است");
       return;
-    } else {
-      setIsRegistrationError("");
     }
 
     if (!pattern.test(licensePlate)) {
-      setIsRegistrationError(
-        "Enter registration number in correct format - AB-12-XY-1234"
-      );
+      setIsRegistrationError("فرمت شماره پلاک صحیح نیست - مثال: AB-12-XY-1234");
       return;
-    } else {
-      setIsRegistrationError("");
     }
 
     if (!vehicleColor) {
-      setIsColorError("Enter correct colour value");
+      setIsColorError("لطفاً رنگ خودرو را وارد کنید");
       return;
-    } else {
-      setIsColorError("");
     }
 
     if (!vehicleSelected) {
-      setIsVehicleSelectedError("Please select vehicle type");
+      setIsVehicleSelectedError("لطفاً نوع وسیله نقلیه را انتخاب کنید");
       return;
-    } else {
-      setIsVehicleSelectedError("");
     }
 
-    // Find the first available slot based on vehicle type
     let newSlot = 1;
     let isSlotFound = false;
 
@@ -152,14 +125,12 @@ function App() {
       const vehiclesInSlot = filledSlot.filter((v) => v.slot === newSlot);
 
       if (vehicleSelected === "car") {
-        // For cars, the slot must be completely empty
         if (vehiclesInSlot.length === 0) {
           isSlotFound = true;
         } else {
           newSlot++;
         }
       } else if (vehicleSelected === "bike") {
-        // For bikes, the slot can have up to 2 bikes and no cars
         if (
           vehiclesInSlot.length < 2 &&
           vehiclesInSlot.every((v) => v.vehicleType === "bike")
@@ -172,20 +143,16 @@ function App() {
     }
 
     if (!isSlotFound) {
-      setIsErrorOpen2("No available slot for the selected vehicle type");
+      setIsErrorOpen2("جای پارک مناسب برای این نوع وسیله نقلیه موجود نیست");
       return;
-    } else {
-      setIsErrorOpen2("");
     }
 
-    // Update the number of parked vehicles
     if (vehicleSelected === "car") {
       setNumParkedAutomobiles((prev) => prev + 1);
     } else if (vehicleSelected === "bike") {
       setNumParkedAutomobiles((prev) => prev + 0.5);
     }
 
-    // Create the new vehicle object
     const newVehicle = {
       id: crypto.randomUUID(),
       slot: newSlot,
@@ -195,69 +162,90 @@ function App() {
       EnterTime: Math.round(Date.now() / 1000),
     };
 
-    // Add the new vehicle to the filledSlot array
     setFilledSlot((prev) => [...prev, newVehicle]);
-
-    // Reset the form fields
     setLicensePlate("");
     setVehicleColor("");
-    // setVehicleSelected("");
+    setVehicleSelected("");
   }
 
   return (
-    <div className="parking-container space-y-[30px] m-0 p-0 w-full min-h-[100vh] flex-col justify-center bg-[url('./images/bg.jpg')] bg-cover bg-[length:170%] bg-no-repeat">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
-      <Main>
-        <SlotSelection Error={isErrorOpen1 && <Error message={isErrorOpen1} />}>
-          <SlotInput
-            slot={slot}
-            setSlot={setSlot}
-            setIsErrorOpen1={setIsErrorOpen1}
-          />
-          <SlotGenerationBtn
-            onIsAddCarOpen={handleIsAddCarOpen}
-            slot={slot}
-            isAddAutomobileOpen={isAddAutomobileOpen}
-          />
-        </SlotSelection>
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="bg-white rounded-xl shadow-sm p-6">
+            <SlotSelection
+              Error={isErrorOpen1 && <Error message={isErrorOpen1} />}
+            >
+              <SlotInput
+                slot={slot}
+                setSlot={setSlot}
+                setIsErrorOpen1={setIsErrorOpen1}
+              />
+              <SlotGenerationBtn
+                onIsAddCarOpen={handleIsAddCarOpen}
+                slot={slot}
+                isAddAutomobileOpen={isAddAutomobileOpen}
+              />
+            </SlotSelection>
+          </div>
 
-        {isAddAutomobileOpen && slot > 0 && (
-          <AddAutomobile
-            AvailableSpace={AvailableSpace}
-            licensePlate={licensePlate}
-            setLicensePlate={setLicensePlate}
-            vehicleColor={vehicleColor}
-            setVehicleColor={setVehicleColor}
-            vehicleSelected={vehicleSelected}
-            setVehicleSelected={setVehicleSelected}
-            onSelectedAvailableSpace={handleSelectedAvailableSpace}
-            Error={
-              isRegistrationError ? (
-                <Error message={isRegistrationError} />
-              ) : isColorError ? (
-                <Error message={isColorError} />
-              ) : isVehicleSelectedError ? (
-                <Error message={isVehicleSelectedError} />
-              ) : isErrorOpen2 ? (
-                <Error message={isErrorOpen2} />
-              ) : (
-                ""
-              )
-            }
-          />
-        )}
+          {isAddAutomobileOpen && slot > 0 && (
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <AddAutomobile
+                AvailableSpace={AvailableSpace}
+                licensePlate={licensePlate}
+                setLicensePlate={setLicensePlate}
+                vehicleColor={vehicleColor}
+                setVehicleColor={setVehicleColor}
+                vehicleSelected={vehicleSelected}
+                setVehicleSelected={setVehicleSelected}
+                onSelectedAvailableSpace={handleSelectedAvailableSpace}
+                Error={
+                  isRegistrationError ? (
+                    <Error message={isRegistrationError} />
+                  ) : isColorError ? (
+                    <Error message={isColorError} />
+                  ) : isVehicleSelectedError ? (
+                    <Error message={isVehicleSelectedError} />
+                  ) : isErrorOpen2 ? (
+                    <Error message={isErrorOpen2} />
+                  ) : (
+                    ""
+                  )
+                }
+              />
+            </div>
+          )}
 
-        <ParkedCars
-          isParkedTableOpen={isParkedTableOpen}
-          filledSlot={filledSlot}
-          setFilledSlot={setFilledSlot}
-          setNumParkedAutomobiles={setNumParkedAutomobiles}
-          setIsAddAutomobileOpen={setIsAddAutomobileOpen}
-          setIsErrorOpen1={setIsErrorOpen1}
-        />
-        <ShowAllParkingSpaces slot={slot} filledSlot={filledSlot} />
-      </Main>
+          {isParkedTableOpen && (
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <ParkedCars filledSlot={filledSlot} />
+            </div>
+          )}
+
+          {slot > 0 && (
+            <div className="bg-white rounded-xl shadow-sm p-6">
+              <ShowAllParkingSpaces
+                slot={slot}
+                filledSlot={filledSlot}
+                onRemoveVehicle={(id) => {
+                  const vehicle = filledSlot.find((v) => v.id === id);
+                  if (vehicle) {
+                    if (vehicle.vehicleType === "car") {
+                      setNumParkedAutomobiles((prev) => prev - 1);
+                    } else if (vehicle.vehicleType === "bike") {
+                      setNumParkedAutomobiles((prev) => prev - 0.5);
+                    }
+                    setFilledSlot((prev) => prev.filter((v) => v.id !== id));
+                  }
+                }}
+              />
+            </div>
+          )}
+        </div>
+      </main>
     </div>
   );
 }

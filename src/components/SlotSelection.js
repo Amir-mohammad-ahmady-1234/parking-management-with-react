@@ -1,10 +1,14 @@
-export default function SlotSelection({ children, Error }) {
+import React from "react";
+
+function SlotSelection({ children, Error }) {
   return (
-    <div className="w-4/5 h-fit bg-white p-[20px] rounded-xl">
-      <div className="slot-selected size-full border p-8 border-black capitalize flex flex-col space-y-4">
-        <div className="flex justify-between items-center">{children}</div>
-        <div className="text-[red] text-[0.9em] font-[500]">{Error}</div>
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        {children}
       </div>
+      {Error}
     </div>
   );
 }
+
+export default SlotSelection;

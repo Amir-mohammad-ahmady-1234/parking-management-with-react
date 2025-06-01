@@ -1,105 +1,168 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* پایه استایل‌ها */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --background: #f8fafc;
+  --card-bg: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+}
+
 body {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 
+           focus:ring-blue-500 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200 
+           focus:ring-gray-500 shadow-sm;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 rounded-lg border border-gray-300 
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+           transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 
+           p-6 transition-all duration-200 hover:shadow-md;
+  }
+
+  .error-message {
+    @apply text-red-500 text-sm mt-1;
+  }
 }
 
 /* استایل دکمه‌ها */
 .generate-btn {
-    background-color: rgb(13, 110, 253);
+  background-color: rgb(13, 110, 253);
 }
 
 .addBtn {
-    background-color: rgb(40, 167, 69);
+  background-color: rgb(40, 167, 69);
 }
 
 /* ورودی‌ها */
 input {
-    border: 1px solid black;
+  border: 1px solid black;
 }
 
 /* استایل‌های ریسپانسیو */
 
 /* برای صفحه‌های بزرگتر از 900px */
 @media screen and (max-width: 900px) {
-    .vehicle-details {
-        flex-direction: column; /* چینش عمودی */
-    }
-    .vehicle-details-container {
-        height: fit-content;
-    }
+  .vehicle-details {
+    flex-direction: column; /* چینش عمودی */
+  }
+  .vehicle-details-container {
+    height: fit-content;
+  }
 
-    .header-compo {
-        height: auto;
-    }
+  .header-compo {
+    height: auto;
+  }
 }
 
 /* برای صفحه‌های کوچکتر از 610px */
 @media screen and (max-width: 610px) {
-    .slot-selected {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-    }
+  .slot-selected {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
 }
 
 /* برای صفحه‌های کوچکتر از 400px */
 @media screen and (max-width: 400px) {
-    .header-compo {
-        height: 8rem; /* کاهش ارتفاع هدر */
-    }
+  .header-compo {
+    height: 8rem; /* کاهش ارتفاع هدر */
+  }
 
-    .vehicle-details-container {
-        padding: 10px;
-    }
+  .vehicle-details-container {
+    padding: 10px;
+  }
 
-    .generate-btn {
-        width: 100%;
-        padding: 1rem;
-    }
+  .generate-btn {
+    width: 100%;
+    padding: 1rem;
+  }
 
-    .addBtn {
-        width: 100%;
-        padding: 1rem;
-    }
+  .addBtn {
+    width: 100%;
+    padding: 1rem;
+  }
 }
 
 /* برای تمامی دستگاه‌ها و رزولوشن‌ها */
 @media (max-width: 640px) {
-    .vehicle-details-container {
-        padding: 15px;
-    }
-    .vehicle-details {
-        gap: 1.5rem; /* فاصله بیشتر */
-    }
-    .addBtn {
-        width: 100%;
-    }
+  .vehicle-details-container {
+    padding: 15px;
+  }
+  .vehicle-details {
+    gap: 1.5rem; /* فاصله بیشتر */
+  }
+  .addBtn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-    .slot-selected {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .vehicle-details-container {
-        flex-direction: column;
-    }
+  .slot-selected {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .vehicle-details-container {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 1024px) {
-    .main-container {
-        padding: 10px;
-    }
+  .main-container {
+    padding: 10px;
+  }
 
-    .header-compo {
-        height: 5rem;
-    }
+  .header-compo {
+    height: 5rem;
+  }
 }
-    
+
+/* Responsive Design */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .container {
+    @apply px-6;
+  }
+}
+
+@media (min-width: 1025px) {
+  .container {
+    @apply px-8;
+  }
+}
